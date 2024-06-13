@@ -4,7 +4,7 @@
 	let { data } = $props();
 </script>
 
-<div class="mx-auto mt-8 max-w-3xl px-4 sm:px-6 lg:px-8">
+<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
 	<div class="space-y-6 rounded-md border p-4">
 		<p>
 			Welcome to the Careswitch take-home assignment! If you followed the quickstart guide in the
@@ -18,7 +18,7 @@
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{#each data.users as user (user.id)}
+				{#each data.users.slice(0, 10) as user (user.id)}
 					<Table.Row>
 						<Table.Cell class="font-medium">{user.id}</Table.Cell>
 						<Table.Cell>{user.name}</Table.Cell>

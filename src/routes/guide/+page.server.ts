@@ -3,7 +3,7 @@ import type { RequestEvent } from './$types';
 
 export const load = async () => {
   const users = await prisma.user.findMany();
-
-  return { users };
+  const workSpaces = await prisma.workSpace.findMany();
+  return { users, workSpaces };
 };
 

@@ -5,6 +5,9 @@ const config: Config = {
 	darkMode: ['class'],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	safelist: ['dark'],
+	variants: {
+		fill: ['hover', 'focus'], // allow tailwind on fill 
+	},
 	theme: {
 		container: {
 			center: true,

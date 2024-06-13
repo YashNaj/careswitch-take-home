@@ -8,21 +8,29 @@ generator client {
 }
 
 model User {
-  id          String     @id @unique @default(cuid())
-  name        String
-  email       String?
-  role        String?
-  WorkSpace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
-  workSpaceId String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime?  @updatedAt
+  id         String      @id @unique @default(cuid())
+  name       String
+  email      String?
+  role       String?
+  active     Boolean     @default(true)
+  workSpaces WorkSpace[] @relation("UserWorkSpaces")
+  region     Region?     @relation(fields: [regionId], references: [name])
+  regionId   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime?   @updatedAt
 }
 
 model WorkSpace {
   id        String    @id @unique @default(cuid())
   name      String
   active    Boolean   @default(true)
-  members   User[]
+  members   User[]    @relation("UserWorkSpaces")
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model Region {
+  id    String @id @unique @default(cuid())
+  name  String @unique
+  users User[]
 }
