@@ -16,9 +16,6 @@ export const load = async () => {
     workSpaces: user.workSpaces.map((workspace) => workspace.name)
   }));
 
-  transformedUsers.map((user) => {
-    console.log(JSON.stringify(user.workSpaces))
-  });
 
-  return { users: transformedUsers };
+  return { users: transformedUsers }
 };

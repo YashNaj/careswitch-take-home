@@ -4,7 +4,8 @@
 	let { data } = $props();
 </script>
 
-<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+<h1 class="text-2xl font-bold">ASSIGNMENT INSTRUCTIONS</h1>
+<div class="px-4 sm:px-6 lg:px-8">
 	<div class="space-y-6 rounded-md border p-4">
 		<p>
 			Welcome to the Careswitch take-home assignment! If you followed the quickstart guide in the

@@ -69,6 +69,7 @@ async function seed() {
 			email: faker.internet.email(),
 			role: faker.helpers.arrayElement(['USER', 'ADMIN']),
 			active: faker.datatype.boolean(),
+			online: faker.datatype.boolean(),
 			regionId: faker.helpers.arrayElement(regionNames),
 		}));
 

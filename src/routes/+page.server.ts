@@ -1,10 +1,10 @@
 import { prisma } from '$lib/server/db';
 import type { RequestEvent } from './$types';
 
-export const load = async () => {
-	const users = await prisma.user.findMany();
+export const load = async ({ url }) => {
 
-	return { users };
+	const users = await prisma.user.findMany();
+	return { users, pahtname: url.pathname };
 };
 
 

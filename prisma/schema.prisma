@@ -13,6 +13,7 @@ model User {
   email      String?
   role       String?
   active     Boolean     @default(true)
+  online     Boolean     @default(true)
   workSpaces WorkSpace[] @relation("UserWorkSpaces")
   region     Region?     @relation(fields: [regionId], references: [name])
   regionId   String
