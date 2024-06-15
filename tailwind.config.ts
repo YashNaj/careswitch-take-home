@@ -25,15 +25,18 @@ const config: Config = {
 				foreground: 'hsl(var(--foreground) / <alpha-value>)',
 				primary: {
 					DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
-					foreground: 'hsl(var(--primary-foreground) / <alpha-value>)'
+					foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+					careRed: '#FF6B6b'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
-					foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)'
+					foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+					careDarkBlue: '#1F2937',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
-					foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)'
+					foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
@@ -41,7 +44,8 @@ const config: Config = {
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
-					foreground: 'hsl(var(--accent-foreground) / <alpha-value>)'
+					foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+					careBlue: '#3B82F6'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover) / <alpha-value>)',

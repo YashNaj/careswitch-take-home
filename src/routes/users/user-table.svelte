@@ -17,7 +17,7 @@
 	import DataTableActions from './user-table-actions.svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import DataTableCheckbox from './user-table-checkbox.svelte';
-	import StatusIndicator from '$lib/components/StatusIndicator.svelte';
+	import StatusIndicator from '$lib/components/indicator-status-universal.svelte';
 
 	export let data: User[];
 
@@ -120,90 +120,90 @@
 	const hidableCols = ['regionId', 'email', 'workSpaces', 'role'];
 </script>
 
-<div class="relative flex h-full max-w-full flex-col">
-	<div class="sticky top-0 z-10 flex h-12 w-full items-start justify-between bg-white">
-		<div class="flex w-full items-center">
-			<Input
-				class="max-w-sm md:max-w-md"
-				placeholder="Filter by name/email/region..."
-				type="text"
-				bind:value={$filterValue}
-			/>
-		</div>
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger asChild let:builder>
-				<Button variant="outline" class="ml-auto" builders={[builder]}>
-					Columns <ChevronDown class="ml-2 h-4 w-4" />
-				</Button>
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Content>
-				{#each flatColumns as col}
-					{#if hidableCols.includes(col.id)}
-						<DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
-							{col.header}
-						</DropdownMenu.CheckboxItem>
-					{/if}
-				{/each}
-			</DropdownMenu.Content>
-		</DropdownMenu.Root>
+<div class="z-10 flex h-12 w-full items-start justify-between">
+	<div class="flex w-full items-center">
+		<Input
+			class="max-w-sm md:max-w-md"
+			placeholder="Filter by name/email/region..."
+			type="text"
+			bind:value={$filterValue}
+		/>
 	</div>
-	<div class="overflow-auto rounded-md border">
-		<Table.Root class="h-full w-full" {...$tableAttrs}>
-			<Table.Header>
-				{#each $headerRows as headerRow}
-					<Subscribe rowAttrs={headerRow.attrs()}>
-						<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
-							{#each headerRow.cells as cell (cell.id)}
-								<Subscribe let:props attrs={cell.attrs()} let:attrs props={cell.props()}>
-									<Table.Head {...attrs}>
-										{#if cell.id === 'name' || cell.id === 'regionId' || cell.id === 'email'}
-											<Button variant="ghost" on:click={props.sort.toggle}>
-												<Render of={cell.render()} />
-												<ArrowUpDown class={'ml-2 h-4 w-4'} />
-											</Button>
-										{:else}
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger asChild let:builder>
+			<Button variant="outline" class="ml-auto" builders={[builder]}>
+				Columns <ChevronDown class="ml-2 h-4 w-4" />
+			</Button>
+		</DropdownMenu.Trigger>
+		<DropdownMenu.Content>
+			{#each flatColumns as col}
+				{#if hidableCols.includes(col.id)}
+					<DropdownMenu.CheckboxItem bind:checked={hideForId[col.id]}>
+						{col.header}
+					</DropdownMenu.CheckboxItem>
+				{/if}
+			{/each}
+		</DropdownMenu.Content>
+	</DropdownMenu.Root>
+</div>
+<div class="max-h-full overflow-auto rounded-md border">
+	<Table.Root class="h-full w-full" {...$tableAttrs}>
+		<Table.Header>
+			{#each $headerRows as headerRow}
+				<Subscribe rowAttrs={headerRow.attrs()}>
+					<Table.Row>
+						{#each headerRow.cells as cell (cell.id)}
+							<Subscribe let:props attrs={cell.attrs()} let:attrs props={cell.props()}>
+								<Table.Head {...attrs} class="[&:has([role=checkbox])]:pl-3">
+									{#if cell.id === 'name' || cell.id === 'regionId' || cell.id === 'email'}
+										<Button variant="ghost" on:click={props.sort.toggle}>
 											<Render of={cell.render()} />
-										{/if}
-									</Table.Head>
-								</Subscribe>
-							{/each}
-						</Table.Row>
-					</Subscribe>
-				{/each}
-			</Table.Header>
-			<Table.Body {...$tableBodyAttrs}>
-				{#each $pageRows as row (row.id)}
-					<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
-						<Table.Row {...rowAttrs}>
-							{#each row.cells as cell (cell.id)}
-								<Subscribe attrs={cell.attrs()} let:attrs>
-									<Table.Cell {...attrs}>
+											<ArrowUpDown class={'ml-2 h-4 w-4'} />
+										</Button>
+									{:else}
 										<Render of={cell.render()} />
-									</Table.Cell>
-								</Subscribe>
-							{/each}
-						</Table.Row>
-					</Subscribe>
-				{/each}
-			</Table.Body>
-		</Table.Root>
-		<div class="flex items-center justify-end space-x-4 py-4">
-			<div class="flex-1 text-sm text-muted-foreground">
-				{Object.keys($selectedDataIds).length} of{' '}
-				{$rows.length} row(s) selected.
-			</div>
-			<Button
-				variant="outline"
-				size="sm"
-				on:click={() => ($pageIndex = $pageIndex - 1)}
-				disabled={!$hasPreviousPage}>Previous</Button
-			>
-			<Button
-				variant="outline"
-				size="sm"
-				disabled={!$hasNextPage}
-				on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
-			>
+									{/if}
+								</Table.Head>
+							</Subscribe>
+						{/each}
+					</Table.Row>
+				</Subscribe>
+			{/each}
+		</Table.Header>
+		<Table.Body {...$tableBodyAttrs}>
+			{#each $pageRows as row (row.id)}
+				<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
+					<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
+						{#each row.cells as cell (cell.id)}
+							<Subscribe attrs={cell.attrs()} let:attrs>
+								<Table.Cell {...attrs}>
+									<div class="flex-1">
+										<Render of={cell.render()} />
+									</div>
+								</Table.Cell>
+							</Subscribe>
+						{/each}
+					</Table.Row>
+				</Subscribe>
+			{/each}
+		</Table.Body>
+	</Table.Root>
+	<div class="flex items-center justify-end space-x-4 py-4">
+		<div class="flex-1 pl-2 text-sm text-muted-foreground">
+			{Object.keys($selectedDataIds).length} of{' '}
+			{$rows.length} row(s) selected.
 		</div>
+		<Button
+			variant="outline"
+			size="sm"
+			on:click={() => ($pageIndex = $pageIndex - 1)}
+			disabled={!$hasPreviousPage}>Previous</Button
+		>
+		<Button
+			variant="outline"
+			size="sm"
+			disabled={!$hasNextPage}
+			on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+		>
 	</div>
 </div>

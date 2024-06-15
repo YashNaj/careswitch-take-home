@@ -11,7 +11,7 @@
 	});
 </script>
 
-<div class="flex h-screen flex-col">
+<div class="text- flex h-screen flex-col">
 	<!-- Main Header -->
 	<div class="w-full">
 		<MainHeader />
@@ -20,20 +20,18 @@
 	<!-- Main Content -->
 	<div class="flex flex-grow overflow-hidden">
 		<!-- Sidebar -->
-		<div class="w-64">
+		<div class="hidden w-64 md:block">
 			<MainSideBar />
 		</div>
 
 		<!-- Content Area -->
-		<div class="flex flex-grow flex-col overflow-y-auto bg-gray-100 p-4">
+		<div class="flex flex-grow flex-col overflow-y-auto p-4">
 			<!-- Page Header -->
 			<!-- Main Content -->
 			<div class="relative flex-grow overflow-y-auto">
-				{#key $navigating}
-					<div transition:fade class="absolute left-0 right-0 top-0 h-full w-full">
-						{@render children()}
-					</div>
-				{/key}
+				<div class="absolute left-0 right-0 top-0 h-full w-full">
+					{@render children()}
+				</div>
 			</div>
 		</div>
 	</div>

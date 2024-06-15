@@ -17,11 +17,12 @@
 <!-- </div> -->
 
 <PageTemplate>
-	<span slot="header">
-		<div class="flex h-full w-full items-baseline justify-between">
-			<h1 class="text-2xl font-bold">Users</h1>
-			<AddUserForm />
-		</div>
+	<span slot="title">
+		<h1 class="text-2xl font-bold">Users</h1>
+	</span>
+
+	<span slot="action">
+		<AddUserForm />
 	</span>
 	<span slot="content">
 		<DataTable data={data.users} />

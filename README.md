@@ -40,4 +40,6 @@ Additional assignment instructions are available on the root route once you navi
 - [Shadcn Components](https://shadcn-svelte.com/docs/components/accordion)
 - [Superforms](https://superforms.rocks/)
 - [Tailwind](https://tailwindcss.com/docs/utility-first)
-- [Zod](https://zod.dev/)
+j- [Zod](https://zod.dev/)
+
+

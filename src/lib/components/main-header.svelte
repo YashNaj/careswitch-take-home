@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CareSwitchLogo from './CareSwitchLogo.svelte';
+	import CareSwitchLogo from './careswitch-logo.svelte';
 </script>
 
 <header class=" z-[99] h-12 w-full md:h-16">
