@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ params }) => {
   try {
     user = await prisma.user.findUnique({
       where: {
-        id: params.id
+        id: params.userId
       }
     })
 

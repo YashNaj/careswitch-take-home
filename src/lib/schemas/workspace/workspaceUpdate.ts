@@ -8,4 +8,4 @@ export const workspaceSchema = z.object({
   memberIds: z.array(z.string()),
 })
 
-export type WorkSpaceUpateSchema = typeof workspaceSchema; 
+export type WorkSpaceUpdateSchema = typeof workspaceSchema; 

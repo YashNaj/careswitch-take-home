@@ -5,4 +5,3 @@
 <div class="flex h-full max-h-full w-full flex-wrap">
 	<WorkSpaceCard />
 </div>
-

@@ -100,7 +100,7 @@ async function seed() {
 		console.log('Seeding completed!');
 	});
 }
-
+//run seed 
 seed()
 	.catch((e) => {
 		console.error(e);

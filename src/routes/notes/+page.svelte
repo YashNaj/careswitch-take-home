@@ -1,6 +1,11 @@
-<h1 class="text-3xl font-bold">Thought process</h1>
+<script lang="ts">
+	import PageContainer from '$lib/components/custom-ui/page-container/page-container.svelte';
+</script>
 
-<p>
-	I kept the database schema simple. The task did not specify if access control was important or
-	not.
-</p>
+<PageContainer>
+	<span slot="title">
+		<h1 class="text-2xl font-bold">Reasoning + Additional Thoughts</h1>
+	</span>
+
+	<span slot="content"> </span>
+</PageContainer>

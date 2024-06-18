@@ -2,9 +2,9 @@ import { prisma } from "$lib/server/db"
 
 export const load = async () => {
   const workSpaces = await prisma.workSpace.findMany({
-    select: {
+    include: {
       members: true
     }
   })
   return { workSpaces }
-}
+} 

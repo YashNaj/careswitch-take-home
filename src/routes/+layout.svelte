@@ -5,10 +5,6 @@
 	import { fade } from 'svelte/transition';
 	import { navigating } from '$app/stores';
 	let { children, data } = $props();
-	let pageTitle = $state('');
-	$effect(() => {
-		pageTitle = document.title;
-	});
 </script>
 
 <div class="text- flex h-screen flex-col">
@@ -25,11 +21,9 @@
 		</div>
 
 		<!-- Content Area -->
-		<div class="flex flex-grow flex-col overflow-y-auto p-4">
-			<!-- Page Header -->
-			<!-- Main Content -->
+		<div class="flex flex-grow flex-col overflow-y-auto">
 			<div class="relative flex-grow overflow-y-auto">
-				<div class="absolute left-0 right-0 top-0 h-full w-full">
+				<div class="absolute left-0 right-0 top-0 flex h-full w-full flex-col">
 					{@render children()}
 				</div>
 			</div>
