@@ -11,8 +11,6 @@
 
 	import { type SuperValidated, type Infer, superForm, actionResult } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { goto, invalidateAll } from '$app/navigation';
-
 	export let data: SuperValidated<Infer<WorkSpaceUpdateSchema>>;
 
 	const form = superForm(data, {
@@ -46,7 +44,7 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button data-sveltekit-reload class="flex w-32 justify-center">
+	<Form.Button data-sveltekit-reload class="flex w-full justify-center ">
 		<div class="relative h-full w-full">
 			{#if $delayed}
 				<div class="absolute flex h-full w-full items-center justify-center">Loading</div>

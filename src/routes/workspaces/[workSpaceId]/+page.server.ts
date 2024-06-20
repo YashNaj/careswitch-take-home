@@ -1,5 +1,5 @@
 import { prisma } from "$lib/server/db";
-import type { Actions } from "@sveltejs/kit";
+import { redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -7,7 +7,9 @@ import { workspaceSchema } from "$lib/schemas/workspace/workspaceUpdate";
 import { fail } from "assert";
 import { goto, invalidateAll } from "$app/navigation";
 import type { WorkSpace } from "@prisma/client";
-
+import { workSpaceIdSchema } from "$lib/schemas/workspace/workspaceId";
+import { removeMember } from "$lib/schemas/workspace/removeMember";
+import { addMember } from "$lib/schemas/workspace/addMember";
 
 export const load: PageServerLoad = async ({ params }) => {
   let workSpace: WorkSpace | null = null;
@@ -23,7 +25,11 @@ export const load: PageServerLoad = async ({ params }) => {
         id: params.workSpaceId,
       },
       include: {
-        members: true
+        members: {
+          include: {
+            region: true
+          }
+        }
       }
     });
 
@@ -33,7 +39,14 @@ export const load: PageServerLoad = async ({ params }) => {
   } catch (error) {
     console.error("Error fetching WorkSpace:", error);
   } finally {
-    return { id: params.workSpaceId, workSpace, workSpaceUpdateForm: await superValidate(workSpace, zod(workspaceSchema)) };
+    return {
+      id: params.workSpaceId,
+      workSpace,
+      workSpaceDeleteForm: await superValidate(zod(workSpaceIdSchema)),
+      workSpaceUpdateForm: await superValidate(workSpace, zod(workspaceSchema)),
+      workSpaceAddMemberForm: await superValidate(zod(addMember)),
+      workSpaceRemoveMemberForm: await superValidate(zod(removeMember))
+    };
   }
 };
 
@@ -72,13 +85,32 @@ export const actions: Actions = {
     }
   },
   delete: async (event) => {
+    const workSpaceDeleteForm = await superValidate(event, zod(workSpaceIdSchema))
 
+    if (!workSpaceDeleteForm.valid) {
+      return fail(400, {
+        workSpaceDeleteForm,
+      });
+    }
+
+    try {
+      await prisma.workSpace.delete({
+        where: {
+          id: workSpaceDeleteForm.data.id
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+    finally {
+      return redirect(302, '/workspaces')
+    }
   },
-  addMember: async () => {
-
+  addMember: async (event) => {
+    const workSpaceAddMemberForm = await superValidate(event, zod(addMember))
   },
-  removeMember: async () => {
-
+  removeMember: async (event) => {
+    const workSpaceRemoveMemberForm = await superValidate(event, zod(workSpaceIdSchema))
   }
 }
 

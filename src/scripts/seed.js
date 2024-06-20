@@ -31,7 +31,7 @@ async function seed() {
 
 		// Fetch region names
 		const regionRecords = await prisma.region.findMany();
-		const regionNames = regionRecords.map((region) => region.name);
+		const regionIds = regionRecords.map((region) => region.id);
 
 		console.log('Regions:', regionRecords);
 
@@ -70,7 +70,7 @@ async function seed() {
 			role: faker.helpers.arrayElement(['USER', 'ADMIN']),
 			active: faker.datatype.boolean(),
 			online: faker.datatype.boolean(),
-			regionId: faker.helpers.arrayElement(regionNames),
+			regionId: faker.helpers.arrayElement(regionIds),
 		}));
 
 		await prisma.user.createMany({ data: usersData });

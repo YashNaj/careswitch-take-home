@@ -1,17 +1,13 @@
 <script lang="ts">
 	import type { WorkSpace } from '@prisma/client';
 	import { Card } from '../../ui/card';
-	import { createToggle } from '$lib/runes/toggle.svelte';
 	import { flyAndScale } from '$lib/utils';
 	export let workSpace: WorkSpace;
-	export const menuToggle = createToggle();
-	import StatusIndicator from '$lib/components/indicator-status-universal.svelte';
+	import { StatusIndicator } from '$lib/components/custom-ui/main-components';
 	import { goto } from '$app/navigation';
 </script>
 
 <Card
-	on:hover={menuToggle.setToggle}
-	on:blur={menuToggle.setToggle}
 	onclick={() => goto(`/workspaces/${workSpace.id}`)}
 	class="group relative flex h-96 w-auto min-w-80 cursor-pointer flex-col justify-self-center overflow-hidden rounded-md px-3 py-2 first:ml-0 last:mr-0 sm:w-[45%]  md:justify-self-start"
 >

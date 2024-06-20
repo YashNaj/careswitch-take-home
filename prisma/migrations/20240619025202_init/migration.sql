@@ -5,10 +5,11 @@ CREATE TABLE "User" (
     "email" TEXT,
     "role" TEXT,
     "active" BOOLEAN NOT NULL DEFAULT true,
+    "online" BOOLEAN NOT NULL DEFAULT true,
     "regionId" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
-    CONSTRAINT "User_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES "Region" ("name") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "User_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES "Region" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

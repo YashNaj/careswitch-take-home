@@ -7,7 +7,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 </script>
 
-<div class="h-fit w-full">
+<div class="h-fit w-full border border-l-0 border-r-0">
 	<Popover.Root portal={null}>
 		<Popover.Trigger asChild let:builder>
 			<Button builders={[builder]} variant="ghost" class="h-fit w-full bg-white pl-0 text-black">

@@ -1,23 +1,20 @@
 <script lang="ts">
 	import '../app.css';
-	import MainHeader from '$lib/components/main-header.svelte';
-	import MainSideBar from '$lib/components/main-sidebar.svelte';
-	import { fade } from 'svelte/transition';
-	import { navigating } from '$app/stores';
+	import { Header, Sidebar } from '$lib/components/custom-ui/main-components';
 	let { children, data } = $props();
 </script>
 
 <div class="text- flex h-screen flex-col">
 	<!-- Main Header -->
 	<div class="w-full">
-		<MainHeader />
+		<Header />
 	</div>
 
 	<!-- Main Content -->
 	<div class="flex flex-grow overflow-hidden">
 		<!-- Sidebar -->
 		<div class="hidden w-64 md:block">
-			<MainSideBar />
+			<Sidebar />
 		</div>
 
 		<!-- Content Area -->
